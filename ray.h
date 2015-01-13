@@ -7,7 +7,6 @@
 #include <iostream>
 #include "aliastable.h"
 #include "xorshift64.h"
-#include "rexp.h"
 
 
 using namespace std;
