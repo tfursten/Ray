@@ -7,7 +7,6 @@ void Ray::initialize(double s, double r)
     sigma = s;
     range = r;
     xsigma = range*sigma;
-    tail = floor(xsigma)+1;
     tcount = 0;
     makeTables();
 }
@@ -39,6 +38,7 @@ void Ray::makeTables(){
     }
     getProb(x2-1.0,xsigma,i);
     double ptail = 1.0-cdf(xsigma);
+    tail = i+1;
     probMap[tail]=ptail*2.0;
     makeVectors();
     makeAliasTable();
