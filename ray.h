@@ -17,18 +17,17 @@ class Ray
 {
 private:
 	double sigma, range, xsigma;
-    int tail, tcount;
+    int rtail, ltail, tcount, vlen;
     pMap probMap;
     vector<int> coordVec;
     vector<double> probVec;
     alias_table xyTable;
     double cdf(double x);
-    double cdfRange(double x1, double x2);
-    void getProb(double x1, double x2, int i);
+    double getProb(double x1, double x2);
     void makeTables();
     void makeVectors();
     void makeAliasTable();
-
+    int tail(xorshift64& rand);
 
 
 

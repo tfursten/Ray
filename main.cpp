@@ -23,9 +23,9 @@ int main()
     Ray rayl;
     Ray rays;
     //double sigma = 2.0;
-    rayl.initialize(.25,3);
+    rayl.initialize(1,3);
     rayl.printTables();
-    rays.initialize(.25,3);
+    rays.initialize(1,3);
     rays.printTables();
     int it = 1000000;
     for(int iii=0; iii<it; iii++)
