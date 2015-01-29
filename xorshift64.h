@@ -13,7 +13,7 @@ Passes all the BigCrush tests.
 */
 class xorshift64 {
 public:
-	xorshift64(uint64_t seed1 = 0, uint64_t seed2 = 0) {	
+	xorshift64(uint64_t seed1 = 0, uint64_t seed2 = 0) {
 		seed(seed1,seed2);
 	}
 
@@ -27,31 +27,33 @@ public:
 		// Burn in the seed
 		for(int i=0;i<256;++i)
 			get_raw();
+        xcount = 0;
 	}
 
 	void seed(std::pair<uint64_t,uint64_t> p) {
 		seed(p.first,p.second);
 	}
-	
+
 	std::pair<uint64_t,uint64_t> get_state() const {
 		return std::make_pair(u,w);
 	}
-	
+
 	// Xorshift + Weyl Generator
 	uint64_t get_raw() {
 		u ^= (u << 5); u ^= (u >> 15); u ^= (u << 27);
 		w += UINT64_C(0x61C8864680B583EB);
+		xcount ++;
 		return u+w;
 	}
-	
+
 	uint64_t get_uint64() {
 		return get_raw();
 	}
-	
+
 	uint32_t get_uint32() {
 		return static_cast<uint32_t>(get_raw() >> 32);
 	}
-	
+
 	// Uniform [0,n) with 64-bits of precision
 	uint64_t get_uint(uint64_t n) {
 		return get_uint64() % n;
@@ -74,19 +76,23 @@ public:
 		double q = (1.0-(DBL_EPSILON/2.0));
 		return a.d-q;
 	}
-	
+
+	int get_count(){
+        return xcount;
+	}
 	// Uniform [0,max)
 	uint64_t operator()() {
 		return get_raw();
 	}
-	
+
 	// Uniform [0,n) with 64-bits of precision
 	uint64_t operator()(uint64_t n) {
 		return get_uint(n);
 	}
-	
+
 private:
 	uint64_t u,w;
+	int xcount;
 };
 
 #endif
